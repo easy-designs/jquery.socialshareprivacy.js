@@ -66,19 +66,21 @@
             $('head').append('<link rel="stylesheet" type="text/css" href="'+options.css_path+'" />');
             $(this).prepend('<ul class="social_share_privacy_area"></ul>');
             var context = $('.social_share_privacy_area', this);
+            
             // als URL wird erstmal die derzeitige Dokument-URL angenommen
             var uri = document.location.href;
+            
             // ist eine kanonische URL hinterlegt wird diese verwendet
-            var canonical = $("link[rel=canonical]").attr("href");
-            if(canonical){
-                if(canonical.indexOf("http") <= 0){
-                    canonical = document.location.protocol+"//"+document.location.host+document.location.port+canonical;
+            var canonical = $('link[rel="canonical"]').attr("href");
+            if (canonical && canonical.length > 0) {
+                if (canonical.indexOf("http") < 0) {
+                    canonical = document.location.protocol + "//" + document.location.host + canonical;
                 }
                 uri = canonical;
             }
         }
 
-        // Text kuerzen und am Ende mit … versehen, sofern er abgekuerzt werden musste
+        // Text kuerzen und am Ende mit \u2026 (horizontal ellipsis) versehen, sofern er abgekuerzt werden musste
         function abbreviateText(text, length){
             var abbreviated = decodeURIComponent(text);
             if(abbreviated.length <= length){
@@ -86,7 +88,7 @@
             }
 
             var lastWhitespaceIndex = abbreviated.substring(0, length - 1).lastIndexOf(' ');
-            abbreviated = encodeURIComponent(abbreviated.substring(0, lastWhitespaceIndex)) + "…";
+            abbreviated = encodeURIComponent(abbreviated.substring(0, lastWhitespaceIndex)) + "\u2026";
 
             return abbreviated;
         }
@@ -272,7 +274,7 @@
                     cookies.socialSharePrivacy_twitter == 'perma_on' ? perma_status_twitter = ' checked="checked"' : perma_status_twitter = '';
                     $container_settings_info.find('form fieldset').append('<input type="checkbox" name="perma_status_twitter" id="perma_status_twitter"'+perma_status_twitter+' /><label for="perma_status_twitter">'+options.services.twitter.display_name+'</label>');
                 }
-                if(options.services.gplus.status == 'on' && options.services.twitter.perma_option == 'on'){
+                if(options.services.gplus.status == 'on' && options.services.gplus.perma_option == 'on'){
                     var perma_status_gplus = '';
                     cookies.socialSharePrivacy_gplus == 'perma_on' ? perma_status_gplus = ' checked="checked"' : perma_status_gplus = '';
                     $container_settings_info.find('form fieldset').append('<input type="checkbox" name="perma_status_gplus" id="perma_status_gplus"'+perma_status_gplus+' /><label for="perma_status_gplus">'+options.services.gplus.display_name+'</label>');

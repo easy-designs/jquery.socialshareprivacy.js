@@ -187,7 +187,7 @@
   &lt;script type="text/javascript" src="jquery.socialshareprivacy.js"&gt;&lt;/script&gt;
   &lt;script type="text/javascript"&gt;
     jQuery(document).ready(function($){
-      if($('#socialshareprivacy')){
+      if($('#socialshareprivacy').length > 0){
         $('#socialshareprivacy').socialSharePrivacy(); 
       }
     });
@@ -215,7 +215,7 @@
 <pre>
 <code>&lt;script type="text/javascript"&gt;
   jQuery(document).ready(function($){
-    if($('#socialshareprivacy')){
+    if($('#socialshareprivacy').length > 0){
       $('#socialshareprivacy').socialSharePrivacy(); 
     }
   });
